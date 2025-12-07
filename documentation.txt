@@ -1,0 +1,89 @@
+AWS Services Involved
+-> VPC
+A dedicated network where all resources live.
+
+-> Subnets
+Public subnets -> For ALB
+Private subnets -> For EKS nodes, pods, databases (future use)
+
+-> Internet Gateway
+Allows inbound/outbound internet traffic for public subnets.
+
+-> NAT Gateway
+Allows private instances to reach the internet (e.g., container image pulls).
+
+-> Route Tables
+Defines how subnets communicate with the internet or private components.
+
+-> Security Groups
+Firewall rules for:
+ALB
+EKS Cluster
+Worker Nodes
+
+-> EKS (Elastic Kubernetes Service)
+Managed Kubernetes control plane + worker nodes.
+
+-> ALB (Application Load Balancer)
+Routes traffic from users -> cluster services.
+
+-> Terraform Overview (How We Build Infrastructure)
+Terraform is used to automate the provisioning of all AWS resources.
+
+Key Terraform Concepts
+
+main.tf -> Defines all resources
+variables.tf -> Accepts input parameters
+outputs.tf -> Displays useful information
+.tfstate -> Stores resource tracking info
+
+-> Terraform Workflow
+Initialize : terraform init
+Validate : terraform validate
+Plan : terraform plan
+Apply : terraform apply -auto-approve
+Destroy (with caution!) : terraform destroy -auto-approve
+
+
+-> After applying, Terraform creates:
+
+VPC
+Subnets
+NAT Gateway
+Route tables
+EKS cluster
+Managed node group
+ALB
+Everything is automated.
+
+-> EKS Basics 
+EKS = Kubernetes running on AWS
+
+It includes:
+
+Control Plane (AWS-managed)
+API Server
+etcd
+Scheduler
+Controllers
+
+We do not manage these directly.
+
+-> Worker Nodes (EC2 instances)
+
+Managed node group
+Lives in private subnets
+Runs pods using container runtime
+
+-> Kubernetes Objects You Should Know
+
+Pods -> Smallest compute unit
+Deployments -> Manages pods and updates
+Services -> Internal/external communication
+Ingress -> Route traffic via ALB
+ConfigMaps -> App configuration
+Secrets -> Secure values
+
+-> Traffic Flow Explanation (Very Important)
+
+        User -> Public ALB -> Kubernetes Ingress -> Service -> Pod
