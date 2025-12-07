@@ -51,12 +51,12 @@ The Terraform configuration creates the following components:
 
 ## 2. Terraform Folder Structure
 
-├── main.tf
-├── variables.tf
-├── data.tf
-├── outputs.tf 
-├── locals.tf
-└── README.md
+    ├── main.tf
+    ├── variables.tf
+    ├── data.tf
+    ├── outputs.tf 
+    ├── locals.tf
+    └── README.md
 
 ## 3. Prerequisites
 
